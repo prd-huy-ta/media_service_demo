@@ -63,11 +63,31 @@ Resources:
         - x86_64
       Policies:
         - Statement:
-          - Sid: TestLambdaS3OutputPolicy
-            Effect: Allow
-            Action:
-              - s3:PutObject
-            Resource: 'arn:aws:s3:::huytatest/*'
+            - Sid: TestLambdaS3OutputPolicy
+              Effect: Allow
+              Action:
+                - s3:PutObject
+              Resource: 'arn:aws:s3:::huytatest/*'
+
+
+  DemoGateway:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: api-gateway-demo/built
+      Handler: handler.handler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+
+  NoProxyGateway:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: api-gateway-no-proxy/built
+      Handler: handler.handler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+
 
   MediaInput:
     Type: AWS::S3::Bucket

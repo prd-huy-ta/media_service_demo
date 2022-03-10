@@ -2,8 +2,8 @@
   "scripts": {
     "clean": "rm -rf node_modules/ dist/ package-lock.json",
     "build": "tsc",
-    "image-thumbnails-create:package": "rsync -avrq ./node_modules ./built/",
-    "package": "npm run build && npm prune --production && npm run image-thumbnails-create:package",
+    "link": "rsync -avrq ./node_modules ./built/",
+    "package": "npm run build && npm prune --production && npm run link",
     "all": "npm run clean && npm install && npm run package"
   },
   "dependencies": {
