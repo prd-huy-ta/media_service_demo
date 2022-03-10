@@ -1,0 +1,77 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Media Service
+
+  Sample SAM Template for Media Service
+
+Globals:
+  Function:
+    Timeout: 120
+    Environment:
+      Variables:
+        BUCKET: MediaInput
+        EXPIRE_TIME: 3600
+        OUTPUT_BUCKET: MediaOutput
+
+Resources:
+  GenenrateS3SignedUrlLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: generate-s3-presigned/built
+      Handler: handler.handler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      Policies:
+        - Statement:
+            - Sid: GenenrateS3SignedUrlLambdaS3Policy
+              Effect: Allow
+              Action:
+                - s3:*
+              Resource: 'arn:aws:s3:::MediaInput/*'
+
+  ImageThumbnailsLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: image-thumbnails-create/built
+      Handler: handler.handler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      Policies:
+        - Statement:
+            - Sid: ImageThumbnailsLambdaS3InputPolicy
+              Effect: Allow
+              Action:
+                - s3:GetObject
+              Resource: 'arn:aws:s3:::MediaInput/*'
+        - Statement:
+            - Sid: ImageThumbnailsLambdaS3OutputPolicy
+              Effect: Allow
+              Action:
+                - s3:PutObject
+              Resource: 'arn:aws:s3:::MediaOutput/*'
+
+  TestLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: testDownloadUrl/built
+      Handler: handler.handler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      Policies:
+        - Statement:
+          - Sid: TestLambdaS3OutputPolicy
+            Effect: Allow
+            Action:
+              - s3:PutObject
+            Resource: 'arn:aws:s3:::huytatest/*'
+
+  MediaInput:
+    Type: AWS::S3::Bucket
+  MediaOutput:
+    Type: AWS::S3::Bucket
+
+

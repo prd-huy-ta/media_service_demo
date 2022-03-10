@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "clean": "rm -rf node_modules/ dist/ package-lock.json",
+    "build": "tsc",
+    "generate-signed-s3-url-handler:package": "rsync -avrq ./node_modules ./built/",
+    "package": "npm run build && npm prune --production && npm run generate-signed-s3-url-handler:package",
+    "all": "npm run clean && npm install && npm run package"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "https": "^1.0.0",
+    "@aws-sdk/client-s3": "^3.53.1",
+    "axios": "^0.26.0",
+    "typed-rest-client": "^1.8.6"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "@types/aws-lambda": "^8.10.93"
+  }
+}
