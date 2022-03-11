@@ -8,7 +8,6 @@ export const handler = async (event: APIGatewayRequestAuthorizerEvent, context, 
 
     const headers = event.headers;
     const queryStringParameters = event.queryStringParameters;
-    console.log(typeof context)
     console.log(context)
 
     let condition = {

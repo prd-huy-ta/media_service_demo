@@ -97,6 +97,44 @@ Resources:
       Architectures:
         - x86_64
 
+  StepFunctionInput:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: demoStepFunction-LambdaInput/built
+      Handler: handler.handler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+
+  StepFunctionSecond:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: demoStepFunction-LambdaSecond/built
+      Handler: handler.handler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+
+  StepFunctionBranch:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: demoStepFunction-LambdaBranch/built
+      Handler: handler.handler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+
+
+  StepFunctionEnd:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: demoStepFunction-LambdaEnd/built
+      Handler: handler.handler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+
+
   MediaInput:
     Type: AWS::S3::Bucket
   MediaOutput:
