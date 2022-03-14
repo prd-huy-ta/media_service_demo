@@ -134,6 +134,15 @@ Resources:
       Architectures:
         - x86_64
 
+  TestS3Trigger:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: testS3Trigger/built
+      Handler: handler.handler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+
 
   MediaInput:
     Type: AWS::S3::Bucket
